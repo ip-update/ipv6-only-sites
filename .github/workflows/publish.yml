@@ -1,0 +1,35 @@
+name: Pages build deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: 'Build page with Jekyll'
+        uses: actions/jekyll-build-pages@v1-beta
+      - name: Archive build output
+        run: tar --dereference --hard-dereference --directory _site/ -cvf artifact.tar .
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: github-pages
+          path: artifact.tar
+          if-no-files-found: warn
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: 'write'
+      pages: 'write'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 'Deploy'
+        id: deployment
+        uses: actions/deploy-pages@v1-beta
