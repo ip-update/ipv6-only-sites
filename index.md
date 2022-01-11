@@ -8,11 +8,8 @@ Generated at {{ site.time | date: '%Y-%m-%d %H:%M:%s' }}<br />
 <table>
   {% for v6site in site.data.v6onlysites %}
     <tr>
-    {% for col in v6site %}
-      <td>
-        {{ col }}
-      </td>
-    {% endfor %}
+    <td><a href="{{ v6site.url }}">{{ v6site.site }}</a></td>
+    <td>{{ v6site.description }}</td>
     </tr>
   {% endfor %}
 </table>
