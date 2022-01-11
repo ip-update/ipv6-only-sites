@@ -10,6 +10,16 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@master
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - name: Install Python dependencies
+        run: pip install dnspython
+      - name: Build data json
+        run: mkdir _data; python generator/generate.py; ls -lha *; cat _data/*
+
       - name: 'Build page with Jekyll'
         uses: actions/jekyll-build-pages@v1-beta
       - name: Archive build output
