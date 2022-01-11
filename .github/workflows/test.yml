@@ -6,7 +6,7 @@ permissions:
   contents: write
 
 jobs:
-  test:
+  Test_and_build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -18,7 +18,7 @@ jobs:
           python-version: 3.9
 
       - name: Install Python dependencies
-        run: pip install black flake8
+        run: pip install black flake8 dnspython
 
       - name: Python Linters
         uses: wearerequired/lint-action@v1
@@ -26,3 +26,9 @@ jobs:
           black: true
           flake8: true
 
+      - name: List files
+        run: mkdir _data; ls -lha *
+      - name: Build
+        run: python generator/generate.py
+      - name: List files post build
+        run: ls -lha *; cat _data/*
