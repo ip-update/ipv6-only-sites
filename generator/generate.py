@@ -9,10 +9,13 @@ try:
 except ImportError:
     print("We need dnspython, use pip install")
 
+g_resolver = resolver.Resolver(configure=False)
+g_resolver.nameservers = ["8.8.8.8", "1.1.1.1"]
+
 
 def resolve(qname, rdtype):
     try:
-        ans = resolver.resolve(qname, rdtype)
+        ans = g_resolver.resolve(qname, rdtype)
         for rdata in ans:
             return rdata.to_text()
         return ans
