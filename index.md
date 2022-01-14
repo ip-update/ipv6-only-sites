@@ -4,7 +4,7 @@
 {% include_relative README.md %}
 
 <h1>IPv6 only sites</h1>
-Generated at {{ site.time | date: '%Y-%m-%d %H:%M:%s' }}<br />
+Generated at {{ site.time | date: '%Y-%m-%d %H:%M:%S %Z' }}<br />
 <table>
   {% for v6site in site.data.v6onlysites %}
     <tr>
