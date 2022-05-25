@@ -1,0 +1,4 @@
+{
+    "protocol": "https",
+    "description": "Random PSK Generator (TRNG)"
+}
